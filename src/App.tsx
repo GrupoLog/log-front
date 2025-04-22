@@ -2,6 +2,7 @@ import ClientsTable from "./components/Table/ClientsTable";
 import ProductsTable from "./components/Table/ProductsTable";
 import PhonesTable from "./components/Table/PhonesTable";
 import VehiclesTable from "./components/Table/VehiclesTable";
+import SolicitacoesTable from "./components/Table/SolicitacoesTable.tsx";
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Home';
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <Route path="/clientes" element={<ClientsTable />} />
         <Route path="/telefone" element={<PhonesTable />} />
         <Route path="/veiculo" element={<VehiclesTable />} />
+        <Route path="/solicitacoes" element={<SolicitacoesTable />} />
       </Routes>
     </Router>
   );

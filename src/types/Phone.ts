@@ -1,4 +1,4 @@
 export interface Phone {
     telefone: string;
-    clientesCpf: string;
+    clientes_cpf: string;
   }

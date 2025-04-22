@@ -32,7 +32,7 @@ function PhonesTable() {
       if (!response.ok) throw new Error("Erro ao deletar");
 
       alert("Telefone deletado com sucesso!");
-      setPhones((prev) => prev.filter((p) => p.clientesCpf !== clientesCpf));
+      setPhones((prev) => prev.filter((p) => p.clientes_cpf !== clientesCpf));
     } catch (err) {
       alert("Erro ao deletar telefone");
     }
@@ -75,11 +75,11 @@ function PhonesTable() {
                 className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
               >
                 <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{phone.telefone}</td>
-                <td className="px-6 py-4">{phone.clientesCpf}</td>
+                <td className="px-6 py-4">{phone.clientes_cpf}</td>
                 <td className="px-6 py-4">
                   <DotsDropdown
                     onEdit={() => openEditModal(phone)}
-                    onDelete={() => handleDelete(phone.clientesCpf)}
+                    onDelete={() => handleDelete(phone.clientes_cpf)}
                   />
                 </td>
               </tr>
@@ -101,7 +101,7 @@ function PhonesTable() {
           phone={phoneToEdit}
           onUpdatedPhone={(updated) => {
             setPhones((prev) =>
-              prev.map((p) => (p.clientesCpf === updated.clientesCpf ? updated : p))
+              prev.map((p) => (p.clientes_cpf === updated.clientes_cpf ? updated : p))
             );
             setEditModalOpen(false);
           }}

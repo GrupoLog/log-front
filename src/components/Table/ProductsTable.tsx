@@ -32,7 +32,7 @@ function ProductsTable() {
       if (!response.ok) throw new Error("Erro ao deletar");
 
       alert("Produto deletado com sucesso!");
-      setProducts((prev) => prev.filter((p) => p.idProduto !== idProduto));
+      setProducts((prev) => prev.filter((p) => p.id_produto !== idProduto));
     } catch (err) {
       alert("Erro ao deletar produto");
     }
@@ -76,14 +76,14 @@ function ProductsTable() {
                 key={index}
                 className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
               >
-                <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{product.idProduto}</td>
+                <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{product.id_produto}</td>
                 <td className="px-6 py-4">{product.peso}</td>
-                <td className="px-6 py-4">{product.dataValidade}</td>
+                <td className="px-6 py-4">{product.data_validade}</td>
                 <td className="px-6 py-4">{product.descricao}</td>
                 <td className="px-6 py-4">
                   <DotsDropdown
                     onEdit={() => openEditModal(product)}
-                    onDelete={() => handleDelete(product.idProduto)}
+                    onDelete={() => handleDelete(product.id_produto)}
                   />
                 </td>
               </tr>
@@ -105,7 +105,7 @@ function ProductsTable() {
           product={productToEdit}
           onUpdatedProduct={(updated) => {
             setProducts((prev) =>
-              prev.map((p) => (p.idProduto === updated.idProduto ? updated : p))
+              prev.map((p) => (p.id_produto === updated.id_produto ? updated : p))
             );
             setEditModalOpen(false);
           }}

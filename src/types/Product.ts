@@ -1,7 +1,7 @@
 export interface Product {
-    idProduto: number;
+  id_produto: number;
     peso: number;
-    dataValidade: string;
+    data_validade: string;
     descricao: string;
   }
   
