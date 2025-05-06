@@ -26,10 +26,7 @@ dist-ssr
 *.flowbite-react
 *.vscode
 
-node_modules
 target
-dist
-logs
 public
 .cache
 .vscode
