@@ -20,7 +20,15 @@ export async function getDriverFunction() {
     return response.data;
 }
 
+export async function getMotorcycleFunction() {
+    const response = await axios.get(`${API_URL}/motos`);
+    return response.data;
+}
 
+export async function getVanFunction() {
+    const response = await axios.get(`${API_URL}/vans`);
+    return response.data;
+}
 
 // POST Functions
 
@@ -48,7 +56,21 @@ export async function postDriverFunction(data) {
     return response.data;
 }
 
+export async function postMotorcycleFunction(data) {
+    const { chassi, proprietario, placa, cep_carga } = data;
+    const response = await axios.post(`${API_URL}/motos`, {
+        chassi, proprietario, placa, cep_carga
+    });
+    return response.data;
+}
 
+export async function postVanFunction(data) {
+    const { chassi, proprietario, placa, cap_passageiros } = data;
+    const response = await axios.post(`${API_URL}/vans`, {
+        chassi, proprietario, placa, cap_passageiros
+    });
+    return response.data;
+}
 
 // PUT Functions
 
@@ -76,10 +98,23 @@ export async function putDriverFunction(data) {
     return response.data;
 }
 
+export async function putMotorcycleFunction(data) {
+    const { chassi, proprietario, placa, cep_carga } = data;
+    const response = await axios.put(`${API_URL}/motos/${chassi}`, {
+        chassi, proprietario, placa, cep_carga
+    });
+    return response.data;
+}
 
+export async function putVanFunction(data) {
+    const { chassi, proprietario, placa, cap_passageiros } = data;
+    const response = await axios.put(`${API_URL}/vans/${chassi}`, {
+        chassi, proprietario, placa, cap_passageiros
+    });
+    return response.data;
+}
 
 // DELETE Functions
-
 
 export async function deleteClientFunction(cpf) {
     const response = await axios.delete(`${API_URL}/clientes/${cpf}`);

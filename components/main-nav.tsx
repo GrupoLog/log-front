@@ -119,7 +119,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
               Vans
             </Link>
             <Link
-              href="/vehicles/motocycles"
+              href="/vehicles/motorcycles"
               className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
             >
               Motos
