@@ -1,20 +1,27 @@
 "use client"
 
 import type React from "react"
+import { useState, useRef } from "react"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Box, Truck, UsersRound, Package } from "lucide-react"
+import { Box, Boxes, UsersRound, UserRoundCog, LayoutDashboard, ChevronDown, Car, Truck, FileText, Briefcase } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { useClickOutside } from "@/hooks/use-click-outsude"
+
 
 export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname()
+  const [openVehicles, setOpenVehicles] = useState(false)
+  const vehiclesRef = useRef<HTMLDivElement>(null)
+
+  useClickOutside(vehiclesRef, () => setOpenVehicles(false))
 
   return (
     <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)} {...props}>
       <Link href="/" className="flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary">
-        <Box className="h-4 w-4" />
+        <LayoutDashboard className="h-4 w-4" />
         <span>Dashboard</span>
       </Link>
       <Link
@@ -44,7 +51,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
           pathname === "/products" ? "text-primary" : "text-muted-foreground",
         )}
       >
-        <Package className="h-4 w-4" />
+        <Boxes className="h-4 w-4" />
         <span>Produtos</span>
       </Link>
 
@@ -55,7 +62,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
           pathname === "/drivers" ? "text-primary" : "text-muted-foreground",
         )}
       >
-        <Package className="h-4 w-4" />
+        <UserRoundCog className="h-4 w-4" />
         <span>Motoristas</span>
       </Link>
       <Link
@@ -65,7 +72,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
           pathname === "/requests" ? "text-primary" : "text-muted-foreground",
         )}
       >
-        <Package className="h-4 w-4" />
+        <FileText className="h-4 w-4" />
         <span>Solicitações</span>
       </Link>
       <Link
@@ -75,7 +82,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
           pathname === "/services" ? "text-primary" : "text-muted-foreground",
         )}
       >
-        <Package className="h-4 w-4" />
+        <Briefcase className="h-4 w-4" />
         <span>Serviços</span>
       </Link>
 
@@ -86,19 +93,40 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
           pathname === "/trips" ? "text-primary" : "text-muted-foreground",
         )}
       >
-        <Package className="h-4 w-4" />
+        <Truck className="h-4 w-4" />
         <span>Viagens</span>
       </Link>
-      <Link
-        href="/vehicles"
-        className={cn(
-          "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/vehicles" ? "text-primary" : "text-muted-foreground",
+
+      <div ref={vehiclesRef} className="relative">
+        <button
+          onClick={() => setOpenVehicles((prev) => !prev)}
+          className={cn(
+            "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary focus:outline-none",
+            pathname.startsWith("/vehicles") ? "text-primary" : "text-muted-foreground",
+          )}
+        >
+          <Car className="h-4 w-4" />
+          <span>Veículos</span>
+          <ChevronDown className="h-4 w-4" />
+        </button>
+
+        {openVehicles && (
+          <div className="absolute left-0 mt-2 w-40 rounded-md border bg-popover shadow-md z-50">
+            <Link
+              href="/vehicles/vans"
+              className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+            >
+              Vans
+            </Link>
+            <Link
+              href="/vehicles/motocycles"
+              className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+            >
+              Motos
+            </Link>
+          </div>
         )}
-      >
-        <Package className="h-4 w-4" />
-        <span>Veículos</span>
-      </Link>
+      </div>
     </nav>
   )
 }
