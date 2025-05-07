@@ -57,9 +57,9 @@ export async function postDriverFunction(data) {
 }
 
 export async function postMotorcycleFunction(data) {
-    const { chassi, proprietario, placa, cep_carga } = data;
+    const { chassi, proprietario, placa, cap_carga } = data;
     const response = await axios.post(`${API_URL}/motos`, {
-        chassi, proprietario, placa, cep_carga
+        chassi, proprietario, placa, cap_carga
     });
     return response.data;
 }
