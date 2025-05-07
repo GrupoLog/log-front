@@ -1,0 +1,56 @@
+"use client"
+import { useState } from "react"
+import { Search } from "lucide-react"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
+import * as Dialog from "@radix-ui/react-dialog"
+import { Input } from "@/components/ui/input"
+
+
+export function ViewVan({ van }) {
+    const [open, setOpen] = useState(false)
+
+    return (
+        <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Trigger>
+                <Search size={20} />
+            </Dialog.Trigger>
+
+            <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50" />
+
+                <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-w-3xl w-full -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-xl focus:outline-none">
+                    <VisuallyHidden>
+                        <Dialog.Title>Visualizar Van</Dialog.Title>
+                    </VisuallyHidden>
+
+                    <div className="grid grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                            <div>
+                                <label className="text-sm font-medium text-gray-700">Chassi</label>
+                                <Input value={van.chassi} readOnly />
+                            </div>
+
+                            <div>
+                                <label className="text-sm font-medium text-gray-700">Proprietário</label>
+                                <Input value={van.proprietario} readOnly />
+                            </div>
+
+                        </div>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="text-sm font-medium text-gray-700">Placa</label>
+                                <Input value={van.placa} readOnly />
+                            </div>
+                            <div>
+                                <label className="text-sm font-medium text-gray-700">Capacidade de passageiros</label>
+                                <Input value={van.cap_passageiros} readOnly />
+                            </div>
+
+                        </div>
+                    </div>
+                </Dialog.Content>
+            </Dialog.Portal>
+        </Dialog.Root>
+    )
+}
