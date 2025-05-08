@@ -5,11 +5,11 @@ import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { PostClientForm } from "./forms/PostClientForm";
-import { PutClientForm } from "./forms/PutClientForm";
+import { PostClientForm } from "./forms/clients/PostClientForm";
+import { PutClientForm } from "./forms/clients/PutClientForm";
 import { ViewDriver } from "./view/ViewDriver";
-import { PostDriverForm } from "./forms/PostDriverForm";
-import { PutDriverForm } from "./forms/PutDriverForm";
+import { PostDriverForm } from "./forms/drivers/PostDriverForm";
+import { PutDriverForm } from "./forms/drivers/PutDriverForm";
 
 export function DriversTable() {
     const [data, setData] = useState([])

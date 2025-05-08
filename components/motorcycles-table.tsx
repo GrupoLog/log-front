@@ -15,13 +15,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { PostMotorcycleForm } from "./forms/PostMotorcycleForm";
+import { PostMotorcycleForm } from "./forms/vehicles/motorcycles/PostMotorcycleForm";
 import { PutProductForm } from "./forms/PutProductForm";
 import { ViewClient } from "./view/ViewClient";
 import { toast } from "./ui/use-toast";
 import { ViewProduct } from "./view/ViewProduct";
 import { ViewMotorcycle } from "./view/ViewMotorcycle";
-import { PutMotorcycleForm } from "./forms/PutMotorcycleForm";
+import { PutMotorcycleForm } from "./forms/vehicles/motorcycles/PutMotorcycleForm";
 
 export function MotorcyclesTable() {
     const [data, setData] = useState([])

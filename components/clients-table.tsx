@@ -16,8 +16,8 @@ import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Form } from "./ui/form";
-import { PostClientForm } from "./forms/PostClientForm";
-import { PutClientForm } from "./forms/PutClientForm";
+import { PostClientForm } from "./forms/clients/PostClientForm";
+import { PutClientForm } from "./forms/clients/PutClientForm";
 import { ViewClient } from "./view/ViewClient";
 import { toast } from "./ui/use-toast";
 

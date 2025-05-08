@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { putProductFunction } from "@/services/APIService"
-import { Textarea } from "../ui/textarea"
+import { Textarea } from "../../ui/textarea"
 
 const FormSchema = z.object({
     id_produto: z.number({

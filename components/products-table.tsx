@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { PostProductForm } from "./forms/PostProductForm";
-import { PutProductForm } from "./forms/PutProductForm";
+import { PostProductForm } from "./forms/products/PostProductForm";
+import { PutProductForm } from "./forms/products/PutProductForm";
 import { ViewClient } from "./view/ViewClient";
 import { toast } from "./ui/use-toast";
 import { ViewProduct } from "./view/ViewProduct";
