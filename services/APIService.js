@@ -20,6 +20,11 @@ export async function getDriverFunction() {
     return response.data;
 }
 
+export async function getDriverById(id) {
+    const response = await axios.get(`${API_URL}/motoristas/${id}`);
+    return response.data;
+}
+
 export async function getMotorcycleFunction() {
     const response = await axios.get(`${API_URL}/motos`);
     return response.data;
@@ -27,6 +32,11 @@ export async function getMotorcycleFunction() {
 
 export async function getVanFunction() {
     const response = await axios.get(`${API_URL}/vans`);
+    return response.data;
+}
+
+export async function getTripFunction() {
+    const response = await axios.get(`${API_URL}/viagens`);
     return response.data;
 }
 
