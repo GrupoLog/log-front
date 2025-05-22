@@ -35,8 +35,50 @@ export async function getVanFunction() {
     return response.data;
 }
 
+export async function getVehiclesFunction() {
+    const response = await axios.get(`${API_URL}/veiculos`);
+    return response.data;
+}
+
 export async function getTripFunction() {
     const response = await axios.get(`${API_URL}/viagens`);
+    return response.data;
+}
+
+export async function getAvailableYearsFunction() {
+  const response = await axios.get(`${API_URL}/viagens`);
+  const viagens = response.data;
+
+  const anos = Array.from(
+    new Set(
+      viagens.map(v => new Date(v.data_viagem).getFullYear())
+    )
+  );
+  return anos.sort((a, b) => b - a);
+}
+
+export async function getTripsCountByTypeFunction(year) {
+    const response = await axios.get(`${API_URL}/viagens/contar_por_tipo?ano=${year}`);
+    return response.data;
+}
+
+export async function getRevenueByPaymentMethodFunction() {
+    const response = await axios.get(`${API_URL}/solicitacoes/receita_por_forma_pagamento`);
+    return response.data;
+}
+
+export async function getMostUsedVehiclesFunction() {
+    const response = await axios.get(`${API_URL}/veiculos/veiculos_mais_utilizados`);
+    return response.data;
+}
+
+export async function getTotalRevenueFunction() {
+    const response = await axios.get(`${API_URL}/solicitacoes/revenue-total`);
+    return response.data;
+}
+
+export async function getMonthlyServicesCountFunction() {
+    const response = await axios.get(`${API_URL}/servicos/contar_servicos_mensais`);
     return response.data;
 }
 

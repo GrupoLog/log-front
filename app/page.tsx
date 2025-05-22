@@ -1,3 +1,5 @@
+'use client'
+import dynamic from 'next/dynamic';
 import Link from "next/link"
 import { Activity, ArrowRight, Box, Clock, DollarSign, Package, Truck } from "lucide-react"
 
@@ -9,8 +11,15 @@ import { DeliveryStatusChart } from "@/components/delivery-status-chart"
 import { MainNav } from "@/components/main-nav"
 import { Overview } from "@/components/overview"
 import { RecentShipments } from "@/components/recent-shipments"
+import RevenueComponent from "@/components/total-revenue"
 import { Search } from "@/components/search"
 import { UserNav } from "@/components/user-nav"
+import HorizontalBarChart from '@/components/charts/HorizontalBarChart';
+import SingleBarChart from '@/components/charts/VerticalSingleBarChart';
+import DoubleBarChart from '@/components/charts/VerticalDoubleBarChart';
+
+const BarChart = dynamic(() => import('@/components/charts/VerticalSingleBarChart'), { ssr: false });
+const PieChart = dynamic(() => import('@/components/charts/PieChart'), { ssr: false });
 
 export default function DashboardPage() {
   return (
@@ -37,68 +46,67 @@ export default function DashboardPage() {
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="reports">Reports</TabsTrigger>
           </TabsList>
+
           <TabsContent value="overview" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Shipments</CardTitle>
-                  <Package className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">1,284</div>
-                  <p className="text-xs text-muted-foreground">+12.5% from last month</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">In Transit</CardTitle>
-                  <Truck className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">342</div>
-                  <p className="text-xs text-muted-foreground">+4.3% from last month</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">On-Time Delivery</CardTitle>
-                  <Clock className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">93.8%</div>
-                  <p className="text-xs text-muted-foreground">+2.1% from last month</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Revenue</CardTitle>
-                  <DollarSign className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">$45,231.89</div>
-                  <p className="text-xs text-muted-foreground">+7.2% from last month</p>
-                </CardContent>
-              </Card>
+            <div className="grid lg:grid-cols-12 gap-4">
+              {/* COLUNA ESQUERDA */}
+              <div className="col-span-12 lg:col-span-8 flex flex-col justify-between gap-4">
+                <Card className="flex-1 h-100">
+                  <CardHeader>
+                    <CardTitle>Quantidade de Serviços ao Longo dos Meses</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pl-2">
+                    <DoubleBarChart />
+                  </CardContent>
+                </Card>
+
+                <Card className="flex-1">
+                  <CardHeader>
+                    <CardTitle>Receita por Forma de Pagamento</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pl-2">
+                    <HorizontalBarChart />
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* COLUNA DIREITA */}
+              <div className="col-span-12 lg:col-span-4 flex flex-col justify-between gap-4">
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Receita Total</CardTitle>
+                    <DollarSign className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">
+                      <RevenueComponent />
+                    </div>
+                    <p className="text-xs text-muted-foreground">De todos os períodos</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="flex-2">
+                  <CardHeader>
+                    <CardTitle>Veículos Mais Utilizados</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pl-2">
+                    <SingleBarChart />
+                  </CardContent>
+                </Card>
+
+                <Card className="flex-1">
+                  <CardHeader>
+                    <CardTitle>Distribuição dos Serviços</CardTitle>
+                    <CardDescription>Distribuição dos Serviços por tipo de veículo</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <PieChart />
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-              <Card className="col-span-4">
-                <CardHeader>
-                  <CardTitle>Monthly Overview</CardTitle>
-                </CardHeader>
-                <CardContent className="pl-2">
-                  <Overview />
-                </CardContent>
-              </Card>
-              <Card className="col-span-3">
-                <CardHeader>
-                  <CardTitle>Delivery Status</CardTitle>
-                  <CardDescription>Distribution of shipment statuses for the current month</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <DeliveryStatusChart />
-                </CardContent>
-              </Card>
-            </div>
+
+
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
               <Card className="col-span-1">
                 <CardHeader>
