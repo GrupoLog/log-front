@@ -82,6 +82,41 @@ export async function getMonthlyServicesCountFunction() {
     return response.data;
 }
 
+export async function getMonthlyRequestsCountFunction() {
+    const response = await axios.get(`${API_URL}/solicitacoes/solicitacoes_por_mes`);
+    return response.data;
+}
+
+export async function getMonthlyRevenueByTypeFunction() {
+    const response = await axios.get(`${API_URL}/servicos/receita_por_tipo`);
+    return response.data;
+}
+
+export async function getPaymentMethodsFunction() { 
+    const response = await axios.get(`${API_URL}/servicos/distribuicao_pagamento`);
+    return response.data;
+}
+
+export async function getTopClientsFunction() {
+    const response = await axios.get(`${API_URL}/solicitacoes/top_clientes`);
+    return response.data;
+}
+
+export async function getTotalRequestsFunction() {
+    const response = await axios.get(`${API_URL}/solicitacoes/total_solicitacoes_func`);
+    return response.data;
+}
+
+export async function getMediumTicketFunction() {
+    const response = await axios.get(`${API_URL}/solicitacoes/ticket_medio`);
+    return response.data;
+}
+
+export async function getPendingPercentualFunction() {
+    const response = await axios.get(`${API_URL}/solicitacoes/percentual_pendentes`);
+    return response.data;
+}
+
 // POST Functions
 
 export async function postClientFunction(data) {
