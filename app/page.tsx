@@ -1,25 +1,21 @@
 'use client'
-import dynamic from 'next/dynamic';
 import Link from "next/link"
 import { Activity, ArrowRight, Box, Clock, DollarSign, Package, Truck } from "lucide-react"
-
+import { loadChart } from "@/lib/loadChart"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { DeliveryStatusChart } from "@/components/delivery-status-chart"
 import { MainNav } from "@/components/main-nav"
-import { Overview } from "@/components/overview"
 import { RecentShipments } from "@/components/recent-shipments"
 import RevenueComponent from "@/components/total-revenue"
 import { Search } from "@/components/search"
 import { UserNav } from "@/components/user-nav"
-import HorizontalBarChart from '@/components/charts/HorizontalBarChart';
-import SingleBarChart from '@/components/charts/VerticalSingleBarChart';
-import DoubleBarChart from '@/components/charts/VerticalDoubleBarChart';
 
-const BarChart = dynamic(() => import('@/components/charts/VerticalSingleBarChart'), { ssr: false });
-const PieChart = dynamic(() => import('@/components/charts/PieChart'), { ssr: false });
+const DoubleBarChart = loadChart('VerticalDoubleBarChart');
+const PieChart = loadChart('PieChart');
+const HorizontalBarChart = loadChart('HorizontalBarChart');
+const SingleBarChart = loadChart('VerticalSingleBarChart');
 
 export default function DashboardPage() {
   return (
