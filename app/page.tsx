@@ -12,10 +12,10 @@ import RevenueComponent from "@/components/total-revenue"
 import { Search } from "@/components/search"
 import { UserNav } from "@/components/user-nav"
 
-const DoubleBarChart = loadChart('VerticalDoubleBarChart');
-const PieChart = loadChart('PieChart');
-const HorizontalBarChart = loadChart('HorizontalBarChart');
-const SingleBarChart = loadChart('VerticalSingleBarChart');
+const DoubleBarChart = loadChart('overview/VerticalDoubleBarChart');
+const PieChart = loadChart('overview/PieChart');
+const HorizontalBarChart = loadChart('overview/HorizontalBarChart');
+const SingleBarChart = loadChart('overview/VerticalSingleBarChart');
 
 export default function DashboardPage() {
   return (
@@ -39,7 +39,7 @@ export default function DashboardPage() {
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="analytics">Motoristas</TabsTrigger>
             <TabsTrigger value="reports">Reports</TabsTrigger>
           </TabsList>
 
