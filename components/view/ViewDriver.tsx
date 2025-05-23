@@ -10,6 +10,7 @@ export function ViewDriver({ motorista }) {
     const phones = Array.isArray(motorista.phonesList) ? motorista.phonesList : []
 
     function formatPhone(phone) {
+        if (!phone) return ''
         const cleaned = phone.replace(/\D/g, '')
 
         if (cleaned.length === 11) {

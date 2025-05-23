@@ -40,8 +40,18 @@ export async function getVehiclesFunction() {
     return response.data;
 }
 
+export async function getVehicleById(id) {
+    const response = await axios.get(`${API_URL}/veiculos/${id}`);
+    return response.data;
+}
+
 export async function getTripFunction() {
     const response = await axios.get(`${API_URL}/viagens`);
+    return response.data;
+}
+
+export async function getTripById(id) {
+    const response = await axios.get(`${API_URL}/viagens/${id}`);
     return response.data;
 }
 
@@ -175,6 +185,14 @@ export async function postVanFunction(data) {
     const { chassi, proprietario, placa, cap_passageiros } = data;
     const response = await axios.post(`${API_URL}/vans`, {
         chassi, proprietario, placa, cap_passageiros
+    });
+    return response.data;
+}
+
+export async function postTripFunction(data) {
+    const { origem, destino, data_viagem, hora_viagem, veiculo_chassi, motoristas_cnh } = data;
+    const response = await axios.post(`${API_URL}/viagens`, {
+        origem, destino, data_viagem, hora_viagem, veiculo_chassi, motoristas_cnh
     });
     return response.data;
 }

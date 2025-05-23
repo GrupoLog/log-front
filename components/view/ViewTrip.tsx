@@ -11,10 +11,13 @@ import {
 } from "@radix-ui/react-dialog"
 import { Input } from "@/components/ui/input"
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
-import { getDriverById } from "@/services/APIService"
+import { getDriverById, getTripById, getVehicleById } from "@/services/APIService"
 
 export function ViewTrip({ viagem }) {
     const [open, setOpen] = useState(false)
+
+    const [trip, setTrip] = useState(null)
+    const [loadingTrip, setLoadingTrip] = useState(false)
 
     const [motorista, setMotorista] = useState(null)
     const [loadingMotorista, setLoadingMotorista] = useState(false)
@@ -27,6 +30,25 @@ export function ViewTrip({ viagem }) {
         const date = new Date(dateString);
         if (isNaN(date)) return "";
         return date.toLocaleDateString('pt-BR');
+    }
+
+    async function fetchTrip(idViagem) {
+        try {
+            const data = await getTripById(idViagem)
+            setTrip(data)
+
+            if (data?.cnh) {
+                fetchMotorista(data.cnh)
+            }
+
+            if (data?.chassi) {
+                fetchVeiculo(data.chassi)
+            }
+
+        } catch (error) {
+            console.error(error)
+            setTrip(null)
+        }
     }
 
     async function fetchMotorista(idMotorista) {
@@ -46,9 +68,7 @@ export function ViewTrip({ viagem }) {
     async function fetchVeiculo(idVeiculo) {
         setLoadingVeiculo(true)
         try {
-            const response = await fetch(`/api/veiculos/${idVeiculo}`)
-            if (!response.ok) throw new Error('Erro ao buscar veículo')
-            const data = await response.json()
+            const data = await getVehicleById(idVeiculo)
             setVeiculo(data)
         } catch (error) {
             console.error(error)
@@ -58,15 +78,27 @@ export function ViewTrip({ viagem }) {
         }
     }
 
+
+    function formatPhone(phone) {
+        if (!phone) return ''
+        const cleaned = phone.replace(/\D/g, '')
+
+        if (cleaned.length === 11) {
+            return cleaned.replace(/(\d{2})(\d{5})(\d{4})/, '($1)$2-$3')
+        } else if (cleaned.length === 10) {
+            return cleaned.replace(/(\d{2})(\d{4})(\d{4})/, '($1)$2-$3')
+        } else {
+            return phone
+        }
+    }
+
     return (
         <Dialog open={open} onOpenChange={(isOpen) => {
             setOpen(isOpen)
-            if (isOpen) {
-                if (viagem.cnh) {
-                    fetchMotorista(viagem.cnh)
-                }
-                if (viagem.id_veiculo) {
-                    fetchVeiculo(viagem.id_veiculo)
+            if (isOpen && viagem.id_viagem) {
+                fetchTrip(viagem.id_viagem)
+                if (viagem.chassi) {
+                    fetchVeiculo(viagem.chassi)
                 }
             }
         }}>
@@ -123,28 +155,34 @@ export function ViewTrip({ viagem }) {
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-4">
                                         <div>
-                                            <label className="text-sm font-medium text-gray-700">Nome</label>
-                                            <Input value={motorista.nome ?? ''} readOnly />
-                                        </div>
-                                        <div>
-                                            <label className="text-sm font-medium text-gray-700">CPF</label>
-                                            <Input value={motorista.cpf ?? ''} readOnly />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-4">
-                                        <div>
                                             <label className="text-sm font-medium text-gray-700">CNH</label>
                                             <Input value={motorista.cnh ?? ''} readOnly />
                                         </div>
                                         <div>
-                                            <label className="text-sm font-medium text-gray-700">Telefone</label>
-                                            <Input value={motorista.telefone ?? ''} readOnly />
+                                            <label className="text-sm font-medium text-gray-700">Tipo</label>
+                                            <Input value={motorista.tipo ?? ''} readOnly />
+                                        </div>
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700">Tipo CNH</label>
+                                            <Input value={motorista.tipo_cnh ?? ''} readOnly />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700">Nome</label>
+                                            <Input value={motorista.nome ?? ''} readOnly />
+                                        </div>
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700">Telefone 1</label>
+                                            <Input value={formatPhone(motorista.telefone_um)} readOnly />
                                         </div>
                                     </div>
                                 </div>
                             ) : (
                                 <p className="text-red-500 text-sm">Motorista não encontrado.</p>
                             )}
+
+
                         </AccordionContent>
                     </AccordionItem>
 
@@ -179,6 +217,8 @@ export function ViewTrip({ viagem }) {
                             ) : (
                                 <p className="text-red-500 text-sm">Veículo não encontrado.</p>
                             )}
+
+
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>

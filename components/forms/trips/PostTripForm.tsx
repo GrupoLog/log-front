@@ -25,18 +25,20 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { postTripFunction } from "@/services/APIService"  // <-- Troquei para postTripFunction
+import { getDriverFunction, getVehiclesFunction, postTripFunction } from "@/services/APIService"  
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { PostDriverForm } from "../drivers/PostDriverForm"
+import { PostMotorcycleForm } from "../vehicles/motorcycles/PostMotorcycleForm"
+import { PostVanForm } from "../vehicles/vans/PostVanForm"
+import { useEffect, useState } from "react"
 
 const FormSchema = z.object({
     origem: z.string().min(1, { message: "Origem é obrigatória" }),
     destino: z.string().min(1, { message: "Destino é obrigatório" }),
     data_viagem: z.string().refine((val) => !isNaN(Date.parse(val)), { message: "Data inválida" }),
     hora_viagem: z.string().min(1, { message: "Hora é obrigatória" }),
-    cnh: z.string().min(1, { message: "CNH do motorista é obrigatória" }),
-    id_veiculo: z.string().min(1, { message: "ID do veículo é obrigatório" }),
-    observacoes: z.string().optional(),
+    veiculo_chassi: z.string().min(1, { message: "Chassi do veículo é obrigatório" }),
+    motoristas_cnh: z.string().min(1, { message: "ID do veículo é obrigatório" }),
 })
 
 export function PostTripForm() {
@@ -47,17 +49,43 @@ export function PostTripForm() {
             destino: "",
             data_viagem: "",
             hora_viagem: "",
-            cnh: "",
-            id_veiculo: "",
-            observacoes: "",
+            veiculo_chassi: "",
+            motoristas_cnh: "",
         },
     })
 
-    const motoristas = [
-        { nome: "João Silva", cnh: "12345678900" },
-        { nome: "Maria Souza", cnh: "98765432100" },
-        { nome: "Carlos Lima", cnh: "56789012345" },
-    ]
+    const [motoristas, setMotoristas] = useState<{ nome: string, cnh: string }[]>([])
+    const [veiculos, setVeiculos] = useState<{ modelo: string, chassi: string }[]>([])
+    const [loadingMotoristas, setLoadingMotoristas] = useState(true)
+    const [loadingVeiculos, setLoadingVeiculos] = useState(true)
+
+    useEffect(() => {
+        async function fetchMotoristas() {
+            try {
+                const result = await getDriverFunction()
+                setMotoristas(result)
+            } catch (error) {
+                console.error("Erro ao buscar motoristas:", error)
+            } finally {
+                setLoadingMotoristas(false)
+            }
+        }
+
+        async function fetchVeiculos() {
+            try {
+                const result = await getVehiclesFunction()
+                setVeiculos(result)
+            } catch (error) {
+                console.error("Erro ao buscar veículos:", error)
+            } finally {
+                setLoadingVeiculos(false)
+            }
+        }
+
+        fetchMotoristas()
+        fetchVeiculos()
+    }, [])
+
 
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         try {
@@ -161,34 +189,36 @@ export function PostTripForm() {
                             <AccordionItem value="item-2">
                                 <AccordionTrigger>Dados do motorista</AccordionTrigger>
                                 <AccordionContent>
-                                    Selecione ou cadastre o motorista responsável pela viagem.
+                                    Selecione um motorista existente ou cadastre um novo motorista responsável pela viagem.
                                     <div className="grid grid-cols-2 gap-6 pt-4">
 
                                         <FormField
                                             control={form.control}
-                                            name="cnh"
+                                            name="motoristas_cnh"
                                             render={({ field }) => (
                                                 <FormItem className="flex-1">
-                                                    <Select onValueChange={field.onChange} value={field.value}>
-                                                        <FormControl>
+                                                    <FormControl>
+                                                        <Select
+                                                            onValueChange={field.onChange}
+                                                            value={field.value}
+                                                            disabled={loadingMotoristas}
+                                                        >
                                                             <SelectTrigger>
-                                                                <SelectValue placeholder="Selecione o motorista" />
+                                                                <SelectValue placeholder={loadingMotoristas ? "Carregando motoristas..." : "Selecione o motorista"} />
                                                             </SelectTrigger>
-                                                        </FormControl>
-                                                        <SelectContent>
-                                                            {motoristas.map((motorista) => (
-                                                                <SelectItem key={motorista.cnh} value={motorista.cnh}>
-                                                                    {motorista.nome} — {motorista.cnh}
-                                                                </SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
+                                                            <SelectContent>
+                                                                {motoristas.map((motorista) => (
+                                                                    <SelectItem key={motorista.cnh} value={motorista.cnh}>
+                                                                        {motorista.nome} — {motorista.cnh}
+                                                                    </SelectItem>
+                                                                ))}
+                                                            </SelectContent>
+                                                        </Select>
+                                                    </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
                                         />
-
-                                        <PostDriverForm />
                                     </div>
                                 </AccordionContent>
                             </AccordionItem>
@@ -198,19 +228,37 @@ export function PostTripForm() {
                                 <AccordionTrigger>Dados do veículo</AccordionTrigger>
                                 <AccordionContent>
                                     Selecione ou cadastre o veículo responsável pela viagem.
+
                                     <FormField
                                         control={form.control}
-                                        name="id_veiculo"
+                                        name="veiculo_chassi"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>ID do veículo</FormLabel>
+                                                <FormLabel>Veículo</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="ID do veículo" {...field} />
+                                                    <Select
+                                                        onValueChange={field.onChange}
+                                                        value={field.value}
+                                                        disabled={loadingVeiculos}
+                                                    >
+                                                        <SelectTrigger>
+                                                            <SelectValue placeholder={loadingVeiculos ? "Carregando veículos..." : "Selecione um veículo"} />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {veiculos.map((veiculo) => (
+                                                                <SelectItem key={veiculo.chassi} value={veiculo.chassi}>
+                                                                    {veiculo.placa} — {veiculo.proprietario}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
+
+
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
@@ -221,6 +269,10 @@ export function PostTripForm() {
 
                     </form>
                 </Form>
+                <PostDriverForm />
+                <PostVanForm />
+                <PostMotorcycleForm />
+
             </DialogContent>
         </Dialog>
     )
