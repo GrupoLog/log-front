@@ -117,6 +117,26 @@ export async function getPendingPercentualFunction() {
     return response.data;
 }
 
+export async function getTripsCountByDriverFunction() {
+    const response = await axios.get(`${API_URL}/motoristas/viagens-por-motorista`);
+    return response.data;
+}
+
+export async function getDriversCountByTypeFunction() {
+    const response = await axios.get(`${API_URL}/motoristas/total-por-tipo`);
+    return response.data;
+}
+
+export async function getTotalTripsFunction() {
+    const response = await axios.get(`${API_URL}/viagens/total-viagens`);
+    return response.data;
+}
+
+export async function getMostFrequentDestinationFunction() {
+    const response = await axios.get(`${API_URL}/motoristas/destino-motorista`);
+    return response.data;
+}
+
 // POST Functions
 
 export async function postClientFunction(data) {

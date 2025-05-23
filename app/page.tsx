@@ -8,14 +8,31 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { MainNav } from "@/components/main-nav"
 import { RecentShipments } from "@/components/recent-shipments"
-import RevenueComponent from "@/components/total-revenue"
 import { Search } from "@/components/search"
 import { UserNav } from "@/components/user-nav"
 
-const DoubleBarChart = loadChart('overview/VerticalDoubleBarChart');
+import RevenueComponent from "@/components/total-revenue"
+import TotalRequestsComponent from "@/components/total-requests"
+import MediumTicketComponent from "@/components/medium-ticket"
+import PendingPercentualComponent from "@/components/pending-percentage"
+import TotalTripsComponent from "@/components/total-trips"
+
+// GRAFICOS DA OVERVIEW
+const DoubleBarChart = loadChart('overview/DoubleBarChart');
 const PieChart = loadChart('overview/PieChart');
 const HorizontalBarChart = loadChart('overview/HorizontalBarChart');
-const SingleBarChart = loadChart('overview/VerticalSingleBarChart');
+const SingleBarChart = loadChart('overview/SingleBarChart');
+
+// GRAFICOS DA SOLICITACOES
+const LineChart = loadChart('requests/LineChart');
+const VerticalBarChart = loadChart('requests/VerticalBarChart');
+const PieChart1 = loadChart('requests/PieChart');
+const HorizontalBarChart1 = loadChart('requests/HorizontalBarChart');
+
+// GRAFICOS DE MOTORISTAS
+const VerticalBarChart1 = loadChart('drivers/VerticalBarChart');
+const PieChartTipoMotorista = loadChart('drivers/PieChart');
+const HorizontalBarChart2 = loadChart('drivers/HorizontalBarChart');
 
 export default function DashboardPage() {
   return (
@@ -39,8 +56,9 @@ export default function DashboardPage() {
         <Tabs defaultValue="overview" className="space-y-4">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics">Motoristas</TabsTrigger>
-            <TabsTrigger value="reports">Reports</TabsTrigger>
+            <TabsTrigger value="requests">Solicitações</TabsTrigger>
+            <TabsTrigger value="drivers">Motoristas</TabsTrigger>
+            <TabsTrigger value="fleet">Frota</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
@@ -123,36 +141,196 @@ export default function DashboardPage() {
               </Card>
             </div>
           </TabsContent>
-          <TabsContent value="analytics" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
-              <Card className="col-span-1">
-                <CardHeader>
-                  <CardTitle>Analytics Content</CardTitle>
-                  <CardDescription>Detailed analytics will be displayed here</CardDescription>
+
+
+          <TabsContent value="requests" className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">Total Solicitações</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[400px] flex items-center justify-center border rounded-md">
-                    <Activity className="h-8 w-8 text-muted-foreground mr-2" />
-                    <span className="text-muted-foreground">Analytics dashboard content</span>
+                  <div className="text-2xl font-bold">
+                    <TotalRequestsComponent />
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">Ticket Médio</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    <MediumTicketComponent />
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">% de Solicitações Pendentes</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    <PendingPercentualComponent />
                   </div>
                 </CardContent>
               </Card>
             </div>
-          </TabsContent>
-          <TabsContent value="reports" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
-              <Card className="col-span-1">
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Evolução das Solicitações Realizadas por Mês</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <LineChart />
+              </CardContent>
+            </Card>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
                 <CardHeader>
-                  <CardTitle>Reports Content</CardTitle>
-                  <CardDescription>Generated reports will be displayed here</CardDescription>
+                  <CardTitle>Receita Total por Tipo de Serviço</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[400px] flex items-center justify-center border rounded-md">
-                    <Box className="h-8 w-8 text-muted-foreground mr-2" />
-                    <span className="text-muted-foreground">Reports dashboard content</span>
+                  <VerticalBarChart />
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Distribuição de Formas de Pagamento</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <PieChart1 />
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Clientes com Mais Solicitações</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <HorizontalBarChart1 />
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="drivers" className="space-y-4">
+            <div className="grid gap-4 lg:grid-cols-12">
+              <Card className="lg:col-span-8 col-span-12">
+                <CardHeader>
+                  <CardTitle>Quantidade de Viagens por Motorista</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <VerticalBarChart1 />
+                </CardContent>
+              </Card>
+
+              <div className="lg:col-span-4 col-span-12 flex flex-col gap-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium">Quantidade de Viagens Realizadas</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-3xl font-bold">
+                      <TotalTripsComponent />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="flex-1">
+                  <CardHeader>
+                    <CardTitle>Distribuição de Motoristas por Tipo</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <PieChartTipoMotorista />
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="col-span-12 grid gap-4 lg:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Destinos mais Frequentes por Motoristas</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <HorizontalBarChart2 />
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Veículos Mais Utilizados</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <SingleBarChart />
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="fleet" className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">Total Solicitações</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    <TotalRequestsComponent />
                   </div>
                 </CardContent>
               </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">Ticket Médio</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    <MediumTicketComponent />
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium">% de Solicitações Pendentes</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    <PendingPercentualComponent />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Clientes com Mais Solicitações</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <HorizontalBarChart1 />
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Distribuição de Formas de Pagamento</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <PieChart1 />
+                </CardContent>
+              </Card>
+
+              <div className="col-span-1 md:col-span-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Evolução das Solicitações Realizadas por Mês</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <LineChart />
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </TabsContent>
         </Tabs>

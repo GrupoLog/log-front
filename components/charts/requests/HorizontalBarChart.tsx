@@ -22,7 +22,7 @@ export default function HorizontalBarClientesChart() {
         async function fetchData() {
             try {
                 const dados = await getTopClientsFunction();
-                const labels = dados.map(item => item.clientes_cpf);
+                const labels = dados.map(item => item.nome);
                 const valores = dados.map(item => item.total_solicitacoes);
 
                 setChartData({
