@@ -14,9 +14,12 @@ import { useClickOutside } from "@/hooks/use-click-outsude"
 export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname()
   const [openVehicles, setOpenVehicles] = useState(false)
+  const [openServices, setOpenServices] = useState(false)
   const vehiclesRef = useRef<HTMLDivElement>(null)
+  const servicesRef = useRef<HTMLDivElement>(null)
 
   useClickOutside(vehiclesRef, () => setOpenVehicles(false))
+  useClickOutside(servicesRef, () => setOpenServices(false))
 
   return (
     <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)} {...props}>
@@ -76,17 +79,6 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
         <span>Solicitações</span>
       </Link>
       <Link
-        href="/services"
-        className={cn(
-          "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/services" ? "text-primary" : "text-muted-foreground",
-        )}
-      >
-        <Briefcase className="h-4 w-4" />
-        <span>Serviços</span>
-      </Link>
-
-      <Link
         href="/trips"
         className={cn(
           "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary",
@@ -96,6 +88,38 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
         <Truck className="h-4 w-4" />
         <span>Viagens</span>
       </Link>
+
+      <div ref={servicesRef} className="relative">
+        <button
+          onClick={() => setOpenServices((prev) => !prev)}
+          className={cn(
+            "flex items-center space-x-1 text-sm font-medium transition-colors hover:text-primary focus:outline-none",
+            pathname.startsWith("/servicings") ? "text-primary" : "text-muted-foreground",
+          )}
+        >
+          <Briefcase className="h-4 w-4" />
+          <span>Serviços</span>
+          <ChevronDown className="h-4 w-4" />
+        </button>
+
+        {openServices && (
+          <div className="absolute left-0 mt-2 w-40 rounded-md border bg-popover shadow-md z-50">
+            <Link
+              href="/servicings/deliveries"
+              className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+            >
+              Entregas
+            </Link>
+            <Link
+              href="/servicings/transport"
+              className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+            >
+              Transporte
+            </Link>
+
+          </div>
+        )}
+      </div>
 
       <div ref={vehiclesRef} className="relative">
         <button

@@ -56,15 +56,15 @@ export async function getTripById(id) {
 }
 
 export async function getAvailableYearsFunction() {
-  const response = await axios.get(`${API_URL}/viagens`);
-  const viagens = response.data;
+    const response = await axios.get(`${API_URL}/viagens`);
+    const viagens = response.data;
 
-  const anos = Array.from(
-    new Set(
-      viagens.map(v => new Date(v.data_viagem).getFullYear())
-    )
-  );
-  return anos.sort((a, b) => b - a);
+    const anos = Array.from(
+        new Set(
+            viagens.map(v => new Date(v.data_viagem).getFullYear())
+        )
+    );
+    return anos.sort((a, b) => b - a);
 }
 
 export async function getTripsCountByTypeFunction(year) {
@@ -102,7 +102,7 @@ export async function getMonthlyRevenueByTypeFunction() {
     return response.data;
 }
 
-export async function getPaymentMethodsFunction() { 
+export async function getPaymentMethodsFunction() {
     const response = await axios.get(`${API_URL}/servicos/distribuicao_pagamento`);
     return response.data;
 }
@@ -144,6 +144,26 @@ export async function getTotalTripsFunction() {
 
 export async function getMostFrequentDestinationFunction() {
     const response = await axios.get(`${API_URL}/motoristas/destino-motorista`);
+    return response.data;
+}
+
+export async function getDeliveriesFunction() {
+    const response = await axios.get(`${API_URL}/servicos-entrega`);
+    return response.data;
+}
+
+export async function getDeliveryById(id) {
+    const response = await axios.get(`${API_URL}/servicos-entrega/${id}`);
+    return response.data;
+}
+
+export async function getTransportationsFunction() {
+    const response = await axios.get(`${API_URL}/servicos-transporte`);
+    return response.data;
+}
+
+export async function getTransportationById(id) {
+    const response = await axios.get(`${API_URL}/servicos-transporte/${id}`);
     return response.data;
 }
 
@@ -193,6 +213,22 @@ export async function postTripFunction(data) {
     const { origem, destino, data_viagem, hora_viagem, veiculo_chassi, motoristas_cnh } = data;
     const response = await axios.post(`${API_URL}/viagens`, {
         origem, destino, data_viagem, hora_viagem, veiculo_chassi, motoristas_cnh
+    });
+    return response.data;
+}
+
+export async function postDeliveryFunction(data) {
+    const { destinatario, id_viagem, peso_total, descricao_produto } = data;
+    const response = await axios.post(`${API_URL}/servicos-entrega`, {
+        destinatario, id_viagem, peso_total, descricao_produto
+    });
+    return response.data;
+}
+
+export async function postTransportationFunction(data) {
+    const { id_viagem, qtd_passageiros, descricao_transporte } = data;
+    const response = await axios.post(`${API_URL}/servicos-transporte`, {
+        id_viagem, qtd_passageiros, descricao_transporte
     });
     return response.data;
 }
