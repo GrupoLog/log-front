@@ -32,9 +32,13 @@ const FormSchema = z.object({
   sobrenome: z.string().min(2, { message: "Sobrenome obrigatório" }),
   rua: z.string(),
   bairro: z.string(),
-  numero: z.number(),
+  numero: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number().int().min(1, { message: "Número obrigatório e deve ser maior que 0" })
+  ),
   cidade: z.string(),
 })
+
 
 export function PostClientForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -45,7 +49,7 @@ export function PostClientForm() {
       sobrenome: "",
       rua: "",
       bairro: "",
-      numero: undefined,
+      numero: 0, // Corrected to match the expected type
       cidade: "",
     },
   })
@@ -167,7 +171,11 @@ export function PostClientForm() {
                   <FormItem>
                     <FormLabel>Número</FormLabel>
                     <FormControl>
-                      <Input placeholder="Digite o número" {...field} />
+                      <Input
+                        type="number"
+                        placeholder="Digite o número"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
