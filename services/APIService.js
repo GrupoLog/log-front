@@ -167,6 +167,41 @@ export async function getTransportationById(id) {
     return response.data;
 }
 
+export async function getRequestsFunction() {
+    const response = await axios.get(`${API_URL}/solicitacoes`);
+    return response.data;
+}
+
+export async function getServicingsFunction() {
+    const response  = await axios.get(`${API_URL}/servicos`);
+    return response.data;
+}
+
+export async function getVehicleUsageByMonthFunction() {
+    const response = await axios.get(`${API_URL}/veiculos/tipo-veiculo-viagens-mes`);
+    return response.data;
+}
+
+export async function getFleetDistributionFunction() {
+    const response = await axios.get(`${API_URL}/veiculos/tipo-veiculo-porcentagem`);
+    return response.data;
+}
+
+export async function getTotalVehiclesCountFunction() {
+    const response = await axios.get(`${API_URL}/veiculos/total-veiculos`);
+    return response.data;
+}
+
+export async function getUnusedVehiclesCountFunction() {
+    const response = await axios.get(`${API_URL}/veiculos/total-ocioso`);
+    return response.data;
+}
+
+export async function getThirdPartyVehiclesPercentageFunction() {
+    const response = await axios.get(`${API_URL}/veiculos/terceirizados-porcentagem`);
+    return response.data;
+}
+
 // POST Functions
 
 export async function postClientFunction(data) {
@@ -229,6 +264,14 @@ export async function postTransportationFunction(data) {
     const { id_viagem, qtd_passageiros, descricao_transporte } = data;
     const response = await axios.post(`${API_URL}/servicos-transporte`, {
         id_viagem, qtd_passageiros, descricao_transporte
+    });
+    return response.data;
+}
+
+export async function postRequestFunction(data) {
+    const { id_servico, clientes_cpf, valor_pagamento, forma_pagamento, status_pagamento, data_solicitacao } = data;
+    const response = await axios.post(`${API_URL}/solicitacoes`, {
+        id_servico, clientes_cpf, valor_pagamento, forma_pagamento,  status_pagamento, data_solicitacao
     });
     return response.data;
 }

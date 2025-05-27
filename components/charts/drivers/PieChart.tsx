@@ -56,7 +56,6 @@ export default function PieChartTipoMotorista() {
 
   return (
     <div className="max-w-md mx-auto">
-      <h2 className="text-lg font-semibold text-center mb-4">Distribuição por Tipo de Motorista</h2>
       <Pie data={chartData} />
     </div>
   );

@@ -19,7 +19,8 @@ function MediumTicketComponent() {
 
   return (
     <div className="text-2xl font-bold">
-      {total !== null ? `R$${total}` : 'Carregando...'}
+      {total !== null ? `R$${Number(total).toFixed(2)}` : 'Carregando...'} 
+
     </div>
   );
 }

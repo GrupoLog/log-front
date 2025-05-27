@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link"
-import { Activity, ArrowRight, Box, Clock, DollarSign, Package, Truck } from "lucide-react"
+import { Activity, ArrowRight, Box, Clock, DollarSign, FileText, Package, Truck, Percent, Car, SquareParking } from "lucide-react"
 import { loadChart } from "@/lib/loadChart"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -16,6 +16,9 @@ import TotalRequestsComponent from "@/components/total-requests"
 import MediumTicketComponent from "@/components/medium-ticket"
 import PendingPercentualComponent from "@/components/pending-percentage"
 import TotalTripsComponent from "@/components/total-trips"
+import TotalVehiclesComponent from "@/components/total-vehicles"
+import TotalUnusedVehiclesComponent from "@/components/total-unused-vehicles"
+import ThirdPartyPercentageComponent from "@/components/third-party-fleet-percentage"
 
 // GRAFICOS DA OVERVIEW
 const DoubleBarChart = loadChart('overview/DoubleBarChart');
@@ -33,6 +36,10 @@ const HorizontalBarChart1 = loadChart('requests/HorizontalBarChart');
 const VerticalBarChart1 = loadChart('drivers/VerticalBarChart');
 const PieChartTipoMotorista = loadChart('drivers/PieChart');
 const HorizontalBarChart2 = loadChart('drivers/HorizontalBarChart');
+
+// GRAFICOS DA FROTA
+const DoubleLineChart = loadChart('fleet/DoubleLineChart');
+const PieChart3 = loadChart('fleet/PieChart');
 
 export default function DashboardPage() {
   return (
@@ -67,8 +74,10 @@ export default function DashboardPage() {
               <div className="col-span-12 lg:col-span-8 flex flex-col justify-between gap-4">
                 <Card className="flex-1 h-100">
                   <CardHeader>
-                    <CardTitle>Quantidade de Serviços ao Longo dos Meses</CardTitle>
+                    <CardTitle>Quantidade Mensal de Serviços</CardTitle>
+                    <CardDescription>Quantidade de serviços ao longo dos meses</CardDescription>
                   </CardHeader>
+
                   <CardContent className="pl-2">
                     <DoubleBarChart />
                   </CardContent>
@@ -77,6 +86,7 @@ export default function DashboardPage() {
                 <Card className="flex-1">
                   <CardHeader>
                     <CardTitle>Receita por Forma de Pagamento</CardTitle>
+                    <CardDescription>Receita de todos os serviços por forma de pagamento</CardDescription>
                   </CardHeader>
                   <CardContent className="pl-2">
                     <HorizontalBarChart />
@@ -102,6 +112,8 @@ export default function DashboardPage() {
                 <Card className="flex-2">
                   <CardHeader>
                     <CardTitle>Veículos Mais Utilizados</CardTitle>
+                    <CardDescription>Veículos mais utilizados por placa</CardDescription>
+
                   </CardHeader>
                   <CardContent className="pl-2">
                     <SingleBarChart />
@@ -120,66 +132,59 @@ export default function DashboardPage() {
               </div>
             </div>
 
-
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
-              <Card className="col-span-1">
-                <CardHeader>
-                  <CardTitle>Recent Shipments</CardTitle>
-                  <CardDescription>Overview of the most recent shipments in the system</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <RecentShipments />
-                </CardContent>
-                <CardFooter>
-                  <Link href="/shipments">
-                    <Button className="w-full" variant="outline">
-                      View All Shipments
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            </div>
           </TabsContent>
 
 
           <TabsContent value="requests" className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">Total Solicitações</CardTitle>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total De Solicitações</CardTitle>
+                  <FileText className="h-4 w-4 text-muted-foreground" />
+
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">
                     <TotalRequestsComponent />
                   </div>
+                  <p className="text-xs text-muted-foreground">Quantidade total de solicitações</p>
+
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="pb-2">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Ticket Médio</CardTitle>
+                  <DollarSign className="h-4 w-4 text-muted-foreground" />
+
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">
                     <MediumTicketComponent />
                   </div>
+                  <p className="text-xs text-muted-foreground">Ticket médio entre todos os clientes</p>
+
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">% de Solicitações Pendentes</CardTitle>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Percentual de Solicitações Pendentes</CardTitle>
+                  <Percent className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">
                     <PendingPercentualComponent />
                   </div>
+                  <p className="text-xs text-muted-foreground">Percentual de solicitações que não foram finalizadas</p>
+
                 </CardContent>
               </Card>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle>Evolução das Solicitações Realizadas por Mês</CardTitle>
+                <CardTitle>Evolução das Solicitações</CardTitle>
+                <CardDescription>Evolução do volume de solicitações realizadas por mês</CardDescription>
+
               </CardHeader>
               <CardContent>
                 <LineChart />
@@ -189,7 +194,9 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Card>
                 <CardHeader>
-                  <CardTitle>Receita Total por Tipo de Serviço</CardTitle>
+                  <CardTitle>Receita Total</CardTitle>
+                  <CardDescription>Receita total por tipo de serviço</CardDescription>
+
                 </CardHeader>
                 <CardContent>
                   <VerticalBarChart />
@@ -197,7 +204,9 @@ export default function DashboardPage() {
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>Distribuição de Formas de Pagamento</CardTitle>
+                  <CardTitle>Receita por Forma de Pagamento</CardTitle>
+                  <CardDescription>Receita total por forma de pagamento</CardDescription>
+
                 </CardHeader>
                 <CardContent>
                   <PieChart1 />
@@ -205,7 +214,9 @@ export default function DashboardPage() {
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>Clientes com Mais Solicitações</CardTitle>
+                  <CardTitle>Clientes Frequentes</CardTitle>
+                  <CardDescription>Clientes com mais solicitações</CardDescription>
+
                 </CardHeader>
                 <CardContent>
                   <HorizontalBarChart1 />
@@ -219,6 +230,8 @@ export default function DashboardPage() {
               <Card className="lg:col-span-8 col-span-12">
                 <CardHeader>
                   <CardTitle>Quantidade de Viagens por Motorista</CardTitle>
+                  <CardDescription>Quantidade total de viagens por motorista</CardDescription>
+
                 </CardHeader>
                 <CardContent>
                   <VerticalBarChart1 />
@@ -227,19 +240,25 @@ export default function DashboardPage() {
 
               <div className="lg:col-span-4 col-span-12 flex flex-col gap-4">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Quantidade de Viagens Realizadas</CardTitle>
+                    <Truck className="h-4 w-4 text-muted-foreground" />
+
                   </CardHeader>
                   <CardContent>
                     <div className="text-3xl font-bold">
                       <TotalTripsComponent />
                     </div>
+                    <p className="text-xs text-muted-foreground">Quantidade total de viagens realizadas</p>
+
                   </CardContent>
                 </Card>
 
                 <Card className="flex-1">
                   <CardHeader>
-                    <CardTitle>Distribuição de Motoristas por Tipo</CardTitle>
+                    <CardTitle>Distribuição de Motoristas</CardTitle>
+                    <CardDescription>Distribuição de motoristas por tipo</CardDescription>
+
                   </CardHeader>
                   <CardContent>
                     <PieChartTipoMotorista />
@@ -250,7 +269,8 @@ export default function DashboardPage() {
               <div className="col-span-12 grid gap-4 lg:grid-cols-2">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Destinos mais Frequentes por Motoristas</CardTitle>
+                    <CardTitle>Destinos mais Frequentes</CardTitle>
+                    <CardDescription>Destinos mais frequentes por motorista</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <HorizontalBarChart2 />
@@ -260,6 +280,8 @@ export default function DashboardPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Veículos Mais Utilizados</CardTitle>
+                    <CardDescription>Veículos mais utilizados entre todos os motoristas</CardDescription>
+
                   </CardHeader>
                   <CardContent>
                     <SingleBarChart />
@@ -272,33 +294,43 @@ export default function DashboardPage() {
           <TabsContent value="fleet" className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">Total Solicitações</CardTitle>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Quantidade de Veículos</CardTitle>
+                  <Car className="h-4 w-4 text-muted-foreground" />
+
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">
-                    <TotalRequestsComponent />
+                    <TotalVehiclesComponent />
                   </div>
+                  <p className="text-xs text-muted-foreground">Quantidade total de veículos</p>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">Ticket Médio</CardTitle>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Quantidade de Veículos Ociosos</CardTitle>
+                  <SquareParking className="h-4 w-4 text-muted-foreground" />
+
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">
-                    <MediumTicketComponent />
+                    <TotalUnusedVehiclesComponent />
                   </div>
+                  <p className="text-xs text-muted-foreground">Quantidade total de veículos ociosos</p>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium">% de Solicitações Pendentes</CardTitle>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Percentual da Frota de Terceiros</CardTitle>
+                  <Percent className="h-4 w-4 text-muted-foreground" />
+
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">
-                    <PendingPercentualComponent />
+                    <ThirdPartyPercentageComponent />
                   </div>
+                  <p className="text-xs text-muted-foreground">Percentual da frota que pertence a terceiros</p>
+
                 </CardContent>
               </Card>
             </div>
@@ -306,31 +338,26 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card>
                 <CardHeader>
-                  <CardTitle>Clientes com Mais Solicitações</CardTitle>
+                  <CardTitle>Evolução Mensal da Frota</CardTitle>
+                  <CardDescription>Evolução mensal do uso da frota</CardDescription>
+
                 </CardHeader>
+
                 <CardContent>
-                  <HorizontalBarChart1 />
+                  <DoubleLineChart />
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>Distribuição de Formas de Pagamento</CardTitle>
+                  <CardTitle>Distribuição da Frota</CardTitle>
+                  <CardDescription>Distribuição percentual da frota por tipo de veículo</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <PieChart1 />
+                  <PieChart3 />
                 </CardContent>
               </Card>
 
-              <div className="col-span-1 md:col-span-2">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Evolução das Solicitações Realizadas por Mês</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <LineChart />
-                  </CardContent>
-                </Card>
-              </div>
+
             </div>
           </TabsContent>
         </Tabs>
