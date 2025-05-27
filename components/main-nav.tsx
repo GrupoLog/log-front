@@ -28,16 +28,6 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
         <span>Dashboard</span>
       </Link>
       <Link
-        href="/shipments"
-        className={cn(
-          "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary",
-          pathname === "/shipments" ? "text-primary" : "text-muted-foreground",
-        )}
-      >
-        <Box className="h-4 w-4" />
-        <span>Shipments</span>
-      </Link>
-      <Link
         href="/clients"
         className={cn(
           "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary",

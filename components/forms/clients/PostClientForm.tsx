@@ -50,24 +50,24 @@ export function PostClientForm() {
     },
   })
 
-async function onSubmit(data: z.infer<typeof FormSchema>) {
-  try {
-    await postClientFunction(data)
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      await postClientFunction(data)
 
-    toast({
-      title: "Cliente cadastrado!",
-      description: "O cliente foi adicionado com sucesso.",
-    })
-    form.reset()
-  } catch (error) {
-    toast({
-      title: "Erro ao cadastrar cliente",
-      description: "Tente novamente mais tarde.",
-      variant: "destructive",
-    })
-    console.error("Erro ao enviar dados:", error)
+      toast({
+        title: "Cliente cadastrado!",
+        description: "O cliente foi adicionado com sucesso.",
+      })
+      form.reset()
+    } catch (error) {
+      toast({
+        title: "Erro ao cadastrar cliente",
+        description: "Tente novamente mais tarde.",
+        variant: "destructive",
+      })
+      console.error("Erro ao enviar dados:", error)
+    }
   }
-}
 
   return (
     <Dialog>
@@ -94,8 +94,13 @@ async function onSubmit(data: z.infer<typeof FormSchema>) {
                   <FormItem>
                     <FormLabel>CPF</FormLabel>
                     <FormControl>
-                      <Input placeholder="000.000.000-00" {...field} />
+                      <Input
+                        placeholder="000.000.000-00"
+                        maxLength={11}
+                        {...field}
+                      />
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )}

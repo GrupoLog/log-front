@@ -40,22 +40,22 @@ export function ViewProduct({ produto }) {
                     <div className="space-y-4">
                         <div>
                             <label className="text-sm font-medium text-gray-700">ID</label>
-                            <Input value={produto.id_produto} readOnly />
+                            <Input value={produto.id_produto} readOnly className="bg-gray-100 text-gray-500" />
                         </div>
 
                         <div>
                             <label className="text-sm font-medium text-gray-700">Data validade</label>
-                            <Input value={formatDateBR(produto.data_validade)} readOnly />
+                            <Input value={formatDateBR(produto.data_validade)} readOnly className="bg-gray-100 text-gray-500" />
                         </div>
                         <div>
                             <label className="text-sm font-medium text-gray-700">Peso</label>
-                            <Input value={produto.peso} readOnly />
+                            <Input value={produto.peso} readOnly className="bg-gray-100 text-gray-500" />
                         </div>
                     </div>
                     <div className="space-y-4">
                         <div>
                             <label className="text-sm font-medium text-gray-700">Descrição</label>
-                            <Textarea value={produto.descricao} readOnly />
+                            <Textarea value={produto.descricao} readOnly className="bg-gray-100 text-gray-500" />
                         </div>
 
                     </div>

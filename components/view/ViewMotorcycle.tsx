@@ -27,12 +27,12 @@ export function ViewMotorcycle({ moto }) {
                         <div className="space-y-4">
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Chassi</label>
-                                <Input value={moto.chassi} readOnly />
+                                <Input value={moto.chassi} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Proprietário</label>
-                                <Input value={moto.proprietario} readOnly />
+                                <Input value={moto.proprietario} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                         </div>
@@ -40,11 +40,11 @@ export function ViewMotorcycle({ moto }) {
                         <div className="space-y-4">
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Placa</label>
-                                <Input value={moto.placa} readOnly />
+                                <Input value={moto.placa} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Capacidade de carga</label>
-                                <Input value={moto.cap_carga} readOnly />
+                                <Input value={moto.cap_carga} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                         </div>

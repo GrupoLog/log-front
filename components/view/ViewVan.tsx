@@ -27,12 +27,12 @@ export function ViewVan({ van }) {
                         <div className="space-y-4">
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Chassi</label>
-                                <Input value={van.chassi} readOnly />
+                                <Input value={van.chassi} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Proprietário</label>
-                                <Input value={van.proprietario} readOnly />
+                                <Input value={van.proprietario} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                         </div>
@@ -40,11 +40,11 @@ export function ViewVan({ van }) {
                         <div className="space-y-4">
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Placa</label>
-                                <Input value={van.placa} readOnly />
+                                <Input value={van.placa} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Capacidade de passageiros</label>
-                                <Input value={van.cap_passageiros} readOnly />
+                                <Input value={van.cap_passageiros} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                         </div>

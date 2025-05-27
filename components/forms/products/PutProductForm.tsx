@@ -100,6 +100,7 @@ export function PutProductForm({ produto, onUpdate }) {
                                             <Input
                                                 {...field}
                                                 readOnly
+                                                className="bg-gray-100 text-gray-500"
                                             />
                                         </FormControl>
                                         <FormMessage />

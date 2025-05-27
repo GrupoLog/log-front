@@ -202,6 +202,16 @@ export async function getThirdPartyVehiclesPercentageFunction() {
     return response.data;
 }
 
+export async function getRequestByIdFunction(id) {
+    const response = await axios.get(`${API_URL}/solicitacoes/${id}`);
+    return response.data;
+}
+
+export async function getSomethingFunction() {
+    const response = await axios.get(`${API_URL}/clientes/cadastro`);
+    return response.data;
+}
+
 // POST Functions
 
 export async function postClientFunction(data) {

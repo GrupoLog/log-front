@@ -2,12 +2,14 @@
 import { deleteClientFunction, getProductFunction, getRequestsFunction, getTripFunction } from "../services/APIService"
 import { useEffect, useState } from "react"
 import { ArrowUpDown } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { PostTripForm } from "./forms/trips/PostTripForm";
 import { ViewTrip } from "./view/ViewTrip";
 import { PostRequestForm } from "./forms/requests/PostRequest";
+import { ViewRequest } from "./view/ViewRequest";
 
 export function RequestsTable() {
     const [data, setData] = useState([])
@@ -95,6 +97,12 @@ export function RequestsTable() {
                                 </Button>
                             </TableHead>
                             <TableHead>
+                                <Button variant="ghost" className="p-0 font-medium" onClick={() => handleSort("status_pagamento")}>
+                                    Status do pagamento
+                                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                                </Button>
+                            </TableHead>
+                            <TableHead>
                                 <Button variant="ghost" className="p-0 font-medium" onClick={() => handleSort("origem")}>
                                     Forma de pagamento
                                     <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -121,6 +129,21 @@ export function RequestsTable() {
                                     {solicitacao.clientes_cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4")}
                                 </TableCell>
                                 <TableCell>{new Date(solicitacao.data_solicitacao).toLocaleDateString('pt-BR')}</TableCell>
+                                <TableCell>
+                                    <Badge
+                                        variant={
+                                            solicitacao.status_pagamento === "Pago"
+                                                ? "success"
+                                                : solicitacao.status_pagamento === "Pendente"
+                                                    ? "outline"
+                                                    : solicitacao.status_pagamento === "Cancelado"
+                                                        ? "warning"
+                                                        : "destructive"
+                                        }
+                                    >
+                                        {solicitacao.status_pagamento}
+                                    </Badge>
+                                </TableCell>
                                 <TableCell>{solicitacao.forma_pagamento}</TableCell>
                                 <TableCell>
                                     {Number(solicitacao.valor_pagamento).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
@@ -128,7 +151,7 @@ export function RequestsTable() {
 
                                 <TableCell className="text-left">
                                     <div className="flex justify-end gap-4">
-                                        <ViewTrip viagem={solicitacao} />
+                                        <ViewRequest solicitacao={solicitacao} />
                                     </div>
                                 </TableCell>
                             </TableRow>

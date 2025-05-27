@@ -44,24 +44,24 @@ export function ViewClient({ cliente }) {
           <div className="space-y-4">
             <div>
               <label className="text-sm font-medium text-gray-700">CPF</label>
-              <Input value={cliente.cpf} readOnly />
+              <Input value={cliente.cpf} readOnly className="bg-gray-100 text-gray-500" />
             </div>
 
             <div>
               <label className="text-sm font-medium text-gray-700">Nome</label>
-              <Input value={cliente.nome} readOnly />
+              <Input value={cliente.nome} readOnly className="bg-gray-100 text-gray-500" />
             </div>
 
             <div>
               <label className="text-sm font-medium text-gray-700">Sobrenome</label>
-              <Input value={cliente.sobrenome} readOnly />
+              <Input value={cliente.sobrenome} readOnly className="bg-gray-100 text-gray-500" />
             </div>
 
             <div>
               <label className="text-sm font-medium text-gray-700">Telefone 1</label>
               <Input
                 value={phones[0] ? formatPhone(phones[0]) : ''}
-                readOnly
+                readOnly className="bg-gray-100 text-gray-500"
               />
             </div>
 
@@ -70,7 +70,7 @@ export function ViewClient({ cliente }) {
                 <label className="text-sm font-medium text-gray-700">Telefone 2</label>
                 <Input
                   value={formatPhone(phones[1])}
-                  readOnly
+                  readOnly className="bg-gray-100 text-gray-500"
                 />
               </div>
             )}
@@ -79,22 +79,22 @@ export function ViewClient({ cliente }) {
           <div className="space-y-4">
             <div>
               <label className="text-sm font-medium text-gray-700">Rua</label>
-              <Input value={cliente.rua} readOnly />
+              <Input value={cliente.rua} readOnly className="bg-gray-100 text-gray-500" />
             </div>
 
             <div>
               <label className="text-sm font-medium text-gray-700">Bairro</label>
-              <Input value={cliente.bairro} readOnly />
+              <Input value={cliente.bairro} readOnly className="bg-gray-100 text-gray-500" />
             </div>
 
             <div>
               <label className="text-sm font-medium text-gray-700">Número</label>
-              <Input value={String(cliente.numero)} readOnly />
+              <Input value={String(cliente.numero)} readOnly className="bg-gray-100 text-gray-500" />
             </div>
 
             <div>
               <label className="text-sm font-medium text-gray-700">Cidade</label>
-              <Input value={cliente.cidade} readOnly />
+              <Input value={cliente.cidade} readOnly className="bg-gray-100 text-gray-500" />
             </div>
           </div>
         </div>

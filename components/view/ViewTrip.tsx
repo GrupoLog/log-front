@@ -121,25 +121,25 @@ export function ViewTrip({ viagem }) {
                                 <div className="space-y-4">
                                     <div>
                                         <label className="text-sm font-medium text-gray-700">ID</label>
-                                        <Input value={viagem.id_viagem} readOnly />
+                                        <Input value={viagem.id_viagem} readOnly className="bg-gray-100 text-gray-500" />
                                     </div>
                                     <div>
                                         <label className="text-sm font-medium text-gray-700">Origem</label>
-                                        <Input value={viagem.origem} readOnly />
+                                        <Input value={viagem.origem} readOnly className="bg-gray-100 text-gray-500" />
                                     </div>
                                     <div>
                                         <label className="text-sm font-medium text-gray-700">Destino</label>
-                                        <Input value={viagem.destino} readOnly />
+                                        <Input value={viagem.destino} readOnly className="bg-gray-100 text-gray-500" />
                                     </div>
                                 </div>
                                 <div className="space-y-4">
                                     <div>
                                         <label className="text-sm font-medium text-gray-700">Data da viagem</label>
-                                        <Input value={formatDateBR(viagem.data_viagem)} readOnly />
+                                        <Input value={formatDateBR(viagem.data_viagem)} readOnly className="bg-gray-100 text-gray-500" />
                                     </div>
                                     <div>
                                         <label className="text-sm font-medium text-gray-700">Hora da viagem</label>
-                                        <Input value={viagem.hora_viagem} readOnly />
+                                        <Input value={viagem.hora_viagem} readOnly className="bg-gray-100 text-gray-500" />
                                     </div>
                                 </div>
                             </div>
@@ -156,25 +156,25 @@ export function ViewTrip({ viagem }) {
                                     <div className="space-y-4">
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">CNH</label>
-                                            <Input value={motorista.cnh ?? ''} readOnly />
+                                            <Input value={motorista.cnh ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Tipo</label>
-                                            <Input value={motorista.tipo ?? ''} readOnly />
+                                            <Input value={motorista.tipo ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Tipo CNH</label>
-                                            <Input value={motorista.tipo_cnh ?? ''} readOnly />
+                                            <Input value={motorista.tipo_cnh ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                     </div>
                                     <div className="space-y-4">
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Nome</label>
-                                            <Input value={motorista.nome ?? ''} readOnly />
+                                            <Input value={motorista.nome ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Telefone 1</label>
-                                            <Input value={formatPhone(motorista.telefone_um)} readOnly />
+                                            <Input value={formatPhone(motorista.telefone_um)} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                     </div>
                                 </div>
@@ -196,21 +196,17 @@ export function ViewTrip({ viagem }) {
                                     <div className="space-y-4">
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Placa</label>
-                                            <Input value={veiculo.placa ?? ''} readOnly />
+                                            <Input value={veiculo.placa ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
-                                            <label className="text-sm font-medium text-gray-700">Modelo</label>
-                                            <Input value={veiculo.modelo ?? ''} readOnly />
+                                            <label className="text-sm font-medium text-gray-700">Chassi</label>
+                                            <Input value={veiculo.chassi ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                     </div>
                                     <div className="space-y-4">
                                         <div>
-                                            <label className="text-sm font-medium text-gray-700">Marca</label>
-                                            <Input value={veiculo.marca ?? ''} readOnly />
-                                        </div>
-                                        <div>
-                                            <label className="text-sm font-medium text-gray-700">Ano</label>
-                                            <Input value={veiculo.ano ?? ''} readOnly />
+                                            <label className="text-sm font-medium text-gray-700">Proprietário</label>
+                                            <Input value={veiculo.proprietario ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                     </div>
                                 </div>

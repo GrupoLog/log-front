@@ -26,7 +26,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { putClientFunction } from "@/services/APIService"
 
-// Schema com phonesList opcional (pode ser vazio)
 const FormSchema = z.object({
   cpf: z.string().min(11, { message: "CPF inválido" }),
   nome: z.string().min(2, { message: "Nome obrigatório" }),
@@ -104,7 +103,7 @@ export function PutClientForm({ cliente, onUpdate }) {
                   <FormItem>
                     <FormLabel>CPF</FormLabel>
                     <FormControl>
-                      <Input value={cliente.cpf} readOnly />
+                      <Input value={cliente.cpf} readOnly className="bg-gray-100 text-gray-500" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

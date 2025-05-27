@@ -40,44 +40,44 @@ export function ViewDriver({ motorista }) {
                         <div className="space-y-4">
                             <div>
                                 <label className="text-sm font-medium text-gray-700">CNH</label>
-                                <Input value={motorista.cnh} readOnly />
+                                <Input value={motorista.cnh} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                             <div>
                                 <label className="text-sm font-medium text-gray-700">CPF</label>
-                                <Input value={motorista.cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4")} readOnly />
+                                <Input value={motorista.cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4")} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Nome</label>
-                                <Input value={motorista.nome} readOnly />
+                                <Input value={motorista.nome} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Telefone 1</label>
-                                <Input value={formatPhone(motorista.telefone_um)} readOnly />
+                                <Input value={formatPhone(motorista.telefone_um)} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
                         </div>
 
                         <div className="space-y-4">
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Tipo</label>
-                                <Input value={motorista.tipo} readOnly />
+                                <Input value={motorista.tipo} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Tipo CNH</label>
-                                <Input value={motorista.tipo_cnh} readOnly />
+                                <Input value={motorista.tipo_cnh} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Gerente (CNH)</label>
-                                <Input value={motorista.cnh_supervisionado} readOnly />
+                                <Input value={motorista.cnh_supervisionado} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
 
                             <div>
                                 <label className="text-sm font-medium text-gray-700">Telefone 2</label>
-                                <Input value={formatPhone(motorista.telefone_dois)} readOnly />
+                                <Input value={formatPhone(motorista.telefone_dois)} readOnly className="bg-gray-100 text-gray-500" />
                             </div>
                         </div>
                     </div>

@@ -101,18 +101,18 @@ export function ViewTransport({ transporte }) {
 
                                     <div>
                                         <label className="text-sm font-medium text-gray-700">ID</label>
-                                        <Input value={transporte.id_servico} readOnly />
+                                        <Input value={transporte.id_servico} readOnly className="bg-gray-100 text-gray-500" />
                                     </div>
 
                                     <div>
                                         <label className="text-sm font-medium text-gray-700">Descrição</label>
-                                        <Input value={transporte.descricao_transporte} readOnly />
+                                        <Input value={transporte.descricao_transporte} readOnly className="bg-gray-100 text-gray-500" />
                                     </div>
                                 </div>
                                 <div className="space-y-4">
                                     <div>
                                         <label className="text-sm font-medium text-gray-700">Quantidade de passageiros</label>
-                                        <Input value={transporte.qtd_passageiros} readOnly />
+                                        <Input value={transporte.qtd_passageiros} readOnly className="bg-gray-100 text-gray-500" />
                                     </div>
                                 </div>
                             </div>
@@ -131,15 +131,15 @@ export function ViewTransport({ transporte }) {
                                     <div className="space-y-4">
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">ID da Viagem</label>
-                                            <Input value={trip.id_viagem ?? ''} readOnly />
+                                            <Input value={trip.id_viagem ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Origem</label>
-                                            <Input value={trip.origem ?? ''} readOnly />
+                                            <Input value={trip.origem ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Data da viagem</label>
-                                            <Input value={formatDateBR(trip.data_viagem)} readOnly />
+                                            <Input value={formatDateBR(trip.data_viagem)} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
 
                                     </div>
@@ -147,15 +147,15 @@ export function ViewTransport({ transporte }) {
                                     <div className="space-y-4">
                                         <div className="invisible">
                                             <label className="text-sm font-medium text-gray-700">Destino</label>
-                                            <Input value={trip.destino ?? ''} readOnly />
+                                            <Input value={trip.destino ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Destino</label>
-                                            <Input value={trip.destino ?? ''} readOnly />
+                                            <Input value={trip.destino ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Hora da viagem</label>
-                                            <Input value={trip.hora_viagem} readOnly />
+                                            <Input value={trip.hora_viagem} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                     </div>
 
@@ -165,35 +165,35 @@ export function ViewTransport({ transporte }) {
                                     <div className="space-y-4">
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">CNH</label>
-                                            <Input value={trip.cnh ?? ''} readOnly />
+                                            <Input value={trip.cnh ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Tipo</label>
-                                            <Input value={trip.tipo ?? ''} readOnly />
+                                            <Input value={trip.tipo ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
 
                                     </div>
                                     <div className="space-y-4">
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Nome do motorista</label>
-                                            <Input value={trip.nome ?? ''} readOnly />
+                                            <Input value={trip.nome ?? ''} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Telefone 1</label>
-                                            <Input value={formatPhone(trip.telefone_um)} readOnly />
+                                            <Input value={formatPhone(trip.telefone_um)} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                     </div>
                                     {/* DADOS DO VEICULO PROPRIAMENTE DITO */}
                                     <div className="space-y-4">
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Placa do veículo</label>
-                                            <Input value={formatPhone(trip.placa)} readOnly />
+                                            <Input value={formatPhone(trip.placa)} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                     </div>
                                     <div className="space-y-4">
                                         <div>
                                             <label className="text-sm font-medium text-gray-700">Proprietário</label>
-                                            <Input value={formatPhone(trip.proprietario)} readOnly />
+                                            <Input value={formatPhone(trip.proprietario)} readOnly className="bg-gray-100 text-gray-500" />
                                         </div>
                                     </div>
 
